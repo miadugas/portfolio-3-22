@@ -1,21 +1,105 @@
-import { ThemeProvider } from '@material-ui/styles'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import theme from './ui/Theme'
-import Header from '../components/ui/Header'
+import React, { useState } from "react";
+import { ThemeProvider } from "@material-ui/styles";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import theme from "./ui/Theme";
+import Header from "./ui/Header";
+import Footer from "./ui/Footer";
+import LandingPage from "./LandingPage";
+import Technology from "./Technology";
+import About from "./About";
+import Portfolio from "./Portfolio";
+import Contact from "./Contact";
+import Estimate from "./Estimate";
 
 function App() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [value, setValue] = useState(0);
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header /> 
+        <Header
+          value={value}
+          setValue={setValue}
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+        />
         <Switch>
-          <Route exact path='/' component={() => <div>Home</div>} />
-          <Route exact path='/technologies' component={() => <div>Technologies</div>} />
-          <Route exact path='/portfolio' component={() => <div>Portfolio</div>} />
-          <Route exact path='/about' component={() => <div>About</div>} />
-          <Route exact path='/contact' component={() => <div>Contact</div>} />
-          <Route exact path='/estimate' component={() => <div>Estimate</div>} />
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <LandingPage
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/services"
+            render={(props) => (
+              <Technology
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/portfolio"
+            render={(props) => (
+              <Portfolio
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/about"
+            render={(props) => (
+              <About
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/contact"
+            render={(props) => (
+              <Contact
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/estimate"
+            render={(props) => (
+              <Estimate
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
         </Switch>
+        <Footer
+          setValue={setValue}
+          setSelectedIndex={setSelectedIndex}
+        />
       </BrowserRouter>
     </ThemeProvider>
   );
